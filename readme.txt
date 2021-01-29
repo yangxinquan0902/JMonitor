@@ -1,6 +1,11 @@
 npm run build
 
-cd dist
-git bash
-chmod +x publish.sh
-./publish.sh
+发布方式:
+    1.
+        cd dist
+        git bash
+        chmod +x publish.sh
+        ./publish.sh
+
+    2. 
+    npm run publish
