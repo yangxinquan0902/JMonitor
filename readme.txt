@@ -8,4 +8,7 @@ npm run build
         ./publish.sh
 
     2. 
-    npm run publish
+        npm run publish
+        
+    3.
+        利用jenkins发布
