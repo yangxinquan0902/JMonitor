@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "clean": "rimraf ./dist/lib/",
-    "build": "npm run clean && cross-env NODE_ENV=production rollup -c ./build/rollup.config.js",
-    "publish": "node ./dist/app.js"
+    "build": "npm run clean && cross-env NODE_ENV=production rollup -c ./build/rollup.config.js"
+    
   },
   "keywords": [],
   "author": "",

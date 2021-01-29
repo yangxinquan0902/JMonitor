@@ -1,10 +1,10 @@
 {
   "name": "elegant-performance-api",
-  "version": "0.0.8",
+  "version": "0.0.10",
   "description": "前端性能检测库 Front-end performance detection library",
   "main": "./lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "publish": "node ./app.js"
   },
   "dependencies": {
     "tti-polyfill": "^0.2.2"
