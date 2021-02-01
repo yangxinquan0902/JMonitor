@@ -2,22 +2,31 @@ const shell = require('shelljs');
 const chalk = require('chalk');
 
 
-// 异步命令
-const exec = (commd, cb)=>{
-    shell.exec(commd, { async: false }, ()=>{
-        cb && cb();
-    });
+// 1. 获取镜像源
+const getRegistry = ()=>{
+    // async: 是否异步执行, 默认false，传入callback时自动开启
+    shell.exec('npm config get registry', { async: false });
+    setRegistry('https://registry.npmjs.org', login);
 };
 
-// 2. 登录
-function npmlogin() {
+
+// 2. 设置镜像源
+const setRegistry = (reg, cb)=>{
+    shell.exec(`npm config set registry ${reg}`, { async: false });
+    cb && cb();
+};
+
+
+// 3. 登录
+const login = () => {
     var username = 'james.yang';
     var password = 'yang19920817';
     var email = '1501684012@qq.com';
+    // 必须加上换行， 否则不会执行下一行命令
     var inputArray = [
         username + "\n",
         password + "\n",
-        email + "\n",
+        email + "\n"
     ];
 
     console.log(chalk.green("npm login"));
@@ -28,26 +37,23 @@ function npmlogin() {
         var cmd = inputArray.shift();
         if (cmd) {
 
+            // 不输出， 安全起见
             shell.echo("input " + cmd);
             child.stdin.write(cmd);
 
         } else {
-            
-            // 3. 发布
-            console.log(chalk.green("npm publish"));
-            exec('npm publish', ()=>{
-                // 4. 设置回原来镜像源
-                exec('npm config set registry=https://registry.npm.taobao.org', ()=>{
-                    console.log(chalk.green("发布完成"));
-                    child.stdin.end();
-                });
-            });
-
+            publish(child);
         }
     });
 };
 
-// 1. 设置镜像源
-exec('npm config set registry=http://registry.npmjs.org', npmlogin);
+// 4. 发布
+const publish = (child)=>{
+    console.log(chalk.green("npm publish"));
+    shell.exec('npm publish', { async: false });
+    console.log(chalk.green("发布完成"));
+    child.stdin.end();
+};
 
 
+getRegistry();
